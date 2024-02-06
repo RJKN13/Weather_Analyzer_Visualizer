@@ -6,11 +6,18 @@ import matplotlib.pyplot as plt
 # Read weather data from csv file
 weather_data = pd.read_csv('weather_data.csv')
 
+row_dict = {
+    '1': "Location",
+    '2': "Temperature",
+    '3': "Precipitation",
+    '4': "WindSpeed"
+}
+
 print("Welcome to Weather Analyzer & Visualization!")
 
 # Created visualize_menu() to display options for user interaction.
 # User can choose to visualize all weather properties from csv file like Temperature,
-# Precipitation, Wind_Speed for 2 locations (Location_A, Location_B) by selecting option '4'
+# Precipitation, WindSpeed for 2 locations (Location_A, Location_B) by selecting option '4'
 # User can also choose to visualize one single property by selecting either 1,2,3 options.
 # Option E will exit the visualize_menu.
 # visualize() is called, based on the option choosed that matches the case.
@@ -18,7 +25,7 @@ def visualize_menu():
     print("Welcome to Weather Visualizer!")
     option = ""
     while option == "":
-        option = input("Select 1.Temperature, 2.Precipitation, 3.Wind_Speed, 4.All, E.To exit: ")
+        option = input("Select 1.Temperature, 2.Precipitation, 3.WindSpeed, 4.All, E.To exit: ")
         match option.lower():
             case "1":
                 visualize("Temperature")
@@ -29,7 +36,7 @@ def visualize_menu():
                 option = ""
 
             case "3":
-                visualize("Wind_Speed")
+                visualize("WindSpeed")
                 option = ""
 
             case "4":
@@ -56,28 +63,32 @@ def analyze_menu():
                        " 4.Delete Row, E.To exit: ")
         match option.lower():
             case "1":
-                selected_column = input("Which column do you want to sort: 1.Location, 2.Temperature, 3.Precipitation, 4.Wind_Speed?: ")
+                selected_column = input("Which column do you want to sort: 1.Location, 2.Temperature, 3.Precipitation, 4.WindSpeed?: ")
                 column_order = input("Do you want to sort in ascending order or descending order? 'a' or 'd': ")
-                print(selected_column, column_order)
-
+                sort(selected_column, column_order)
                 option = ""
 
             case "2":
-                filter_column = input("Which column do you want to filter: 1.Location, 2.Temperature, 3.Precipitation, 4.Wind_Speed? ")
-                print(filter_column)
+                filter_column = input("Which column do you want to filter: 1.Location, 2.Temperature, 3.Precipitation, 4.WindSpeed? ")
+                filter_value = int(input("Enter the value: "))
+                filter_order = input("Do you want to filter </> on the filter value: ")
                 option = ""
 
             case "3":
                 location_name = input("Location Name: ")
                 temperature = int(input("Temperature: "))
                 precipitation = int(input("Precipitation: "))
-                wind_speed = int(input("Wind_Speed': "))
-                print(location_name, temperature, precipitation, wind_speed)
+                wind_speed = int(input("WindSpeed: "))
+                new_row = {
+                    "Location": location_name,
+                    "Temperature": temperature,
+                    "Precipitation": precipitation,
+                    "WindSpeed": wind_speed
+                }
                 option = ""
 
             case "4":
                 row_index = int(input("Which row do you want to delete: "))
-                print(row_index)
                 option = ""
 
             case "E":
@@ -105,6 +116,21 @@ def visualize(str):
     plt.ylabel(str)
     # to display diagram
     plt.show()
+
+
+# Sort the df weather_data using sort_values() by passing 2 arguments column_name, ascending flag
+# User entered data reads a number as key, which is interpreted from row_dict dictionary
+def sort(column_name, ascending):
+    flag = ""
+    if ascending == 'a':
+        flag = True
+    else:
+        flag = False
+    print(row_dict[column_name], flag)
+
+    df = weather_data.sort_values(by=row_dict[column_name], ascending=flag)
+    print(df)
+
 
 # display options for user interaction
 # option 'v' displays visualize_menu()
