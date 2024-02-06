@@ -72,6 +72,7 @@ def analyze_menu():
                 filter_column = input("Which column do you want to filter: 1.Location, 2.Temperature, 3.Precipitation, 4.WindSpeed? ")
                 filter_value = int(input("Enter the value: "))
                 filter_order = input("Do you want to filter </> on the filter value: ")
+                filter_data(filter_column, filter_value, filter_order)
                 option = ""
 
             case "3":
@@ -130,6 +131,16 @@ def sort(column_name, ascending):
 
     df = weather_data.sort_values(by=row_dict[column_name], ascending=flag)
     print(df)
+
+# Filter the df weather_data using filter_data()
+# Based on the user input to filter the data in </> by filter_value
+# User entered data reads a number as key(column_name), which is interpreted from row_dict dictionary
+def filter_data(column_name, filter_value, filter_order):
+    if filter_order == "<":
+        filtered_df = weather_data[weather_data[row_dict[column_name]] < filter_value]
+    else:
+        filtered_df = weather_data[weather_data[row_dict[column_name]] > filter_value]
+    print(filtered_df)
 
 
 # display options for user interaction
