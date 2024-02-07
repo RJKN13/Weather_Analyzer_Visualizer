@@ -1,3 +1,12 @@
-Location,Temperature,Precipitation,Wind_Speed
-Location_A,10,20,30
-Location_B,30,20,10
+Location,Temperature,Precipitation,WindSpeed
+Malmö,10,20,30
+Lund,8,35,25
+Helsingborg,12,36,28
+Hasselholm,18,28,28
+Goteborg,10,30,35
+Stockholm,8,38,28
+Älmhult,10,34,34
+Karlskrona,12,25,35
+Kalmar,10,25,35
+Kiruna,3,35,38
+Växjö,7,36,28

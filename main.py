@@ -86,6 +86,7 @@ def analyze_menu():
                     "Precipitation": precipitation,
                     "WindSpeed": wind_speed
                 }
+                add_row(new_row)
                 option = ""
 
             case "4":
@@ -141,6 +142,18 @@ def filter_data(column_name, filter_value, filter_order):
     else:
         filtered_df = weather_data[weather_data[row_dict[column_name]] > filter_value]
     print(filtered_df)
+
+
+# Based on the user input, data can be added into csv file.
+def add_row(new_row):
+    # load weather_data into a DataFrame object
+    df = pd.DataFrame(weather_data)
+    # concat the 2 data frames df, df for new_row
+    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+    # write data frame to CSV file
+    df.to_csv('weather_data.csv', mode='w', index=False)
+    # print message
+    print("Data appended successfully!")
 
 
 # display options for user interaction
