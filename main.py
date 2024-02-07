@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 # Read weather data from csv file
 weather_data = pd.read_csv('weather_data.csv')
+print(weather_data)
 
 row_dict = {
     '1': "Location",
@@ -69,7 +70,7 @@ def analyze_menu():
                 option = ""
 
             case "2":
-                filter_column = input("Which column do you want to filter: 1.Location, 2.Temperature, 3.Precipitation, 4.WindSpeed? ")
+                filter_column = input("Which column do you want to filter: 2.Temperature, 3.Precipitation, 4.WindSpeed? ")
                 filter_value = int(input("Enter the value: "))
                 filter_order = input("Do you want to filter </> on the filter value: ")
                 filter_data(filter_column, filter_value, filter_order)
@@ -91,6 +92,7 @@ def analyze_menu():
 
             case "4":
                 row_index = int(input("Which row do you want to delete: "))
+                delete_row(row_index)
                 option = ""
 
             case "E":
@@ -154,6 +156,16 @@ def add_row(new_row):
     df.to_csv('weather_data.csv', mode='w', index=False)
     # print message
     print("Data appended successfully!")
+
+# Based on the user input, which is row index, drop the row from the dataframe and update the csv file.
+def delete_row(selected_row):
+    # load weather_data into a DataFrame object
+    df = pd.DataFrame(weather_data)
+    # Delete row based on the user input, using drop()
+    df = df.drop(selected_row)
+    # write data frame to CSV file
+    df.to_csv('weather_data.csv', mode='w', index=False)
+    print(df)
 
 
 # display options for user interaction
